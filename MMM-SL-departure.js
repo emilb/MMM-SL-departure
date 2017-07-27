@@ -1,6 +1,6 @@
 
 
-Module.register("SLdeparture", {
+Module.register("MMM-SL-departure", {
 	// Default module config.
 	defaults: {
         api_key: '',
