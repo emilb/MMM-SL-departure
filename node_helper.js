@@ -5,7 +5,7 @@ var moment = require('moment');
 
 module.exports = NodeHelper.create({
 
-    reloadInterval: 10 * 1000,
+    reloadInterval: 2 * 60 * 1000,
 
     // Subclass start method.
     start: function () {
@@ -26,10 +26,10 @@ module.exports = NodeHelper.create({
     fetchDepartures: function () {
 
         const self = this;
-        console.log("Fetching departures");
+        //console.log("Fetching departures");
         departures = [];
         var url = this.config.api_url.replace('API_KEY', this.config.api_key).replace('TIME_WINDOW', this.config.time_window).replace('STATION', this.config.station);
-        console.log(`Fetching: ${url}`);
+        //console.log(`Fetching: ${url}`);
 
         nodeVersion = Number(process.version.match(/^v(\d+\.\d+)/)[1]);
         headers = { "User-Agent": "Mozilla/5.0 (Node.js " + nodeVersion + ") MagicMirror/" + global.version + " (https://github.com/MichMich/MagicMirror/)" }
@@ -46,7 +46,7 @@ module.exports = NodeHelper.create({
             });
 
             suitableBuses.forEach(bus => {
-                console.log(bus.DisplayTime + ' mot ' + bus.Destination + ', linje: ' + bus.LineNumber);
+                //console.log(bus.DisplayTime + ' mot ' + bus.Destination + ', linje: ' + bus.LineNumber);
 
                 departures.push({
                     line_number: bus.LineNumber,
@@ -56,7 +56,7 @@ module.exports = NodeHelper.create({
                 });
             });
 
-            console.log(JSON.stringify(departures));
+            //console.log(JSON.stringify(departures));
             self.sendSocketNotification("SL_DEPARTURES", departures);
             self.scheduleTimer();
         });
