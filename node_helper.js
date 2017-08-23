@@ -5,7 +5,7 @@ var moment = require('moment');
 
 module.exports = NodeHelper.create({
 
-    reloadInterval: 2 * 60 * 1000,
+    reloadInterval: 10 * 60 * 1000,
 
     // Subclass start method.
     start: function () {
