@@ -5,7 +5,7 @@ var moment = require('moment');
 
 module.exports = NodeHelper.create({
 
-    reloadInterval: 10 * 60 * 1000,
+    reloadInterval: 5 * 60 * 1000,
 
     // Subclass start method.
     start: function () {
@@ -37,7 +37,7 @@ module.exports = NodeHelper.create({
                 self.scheduleTimer();
                 return;
             }
-            
+
             try {
                 var response_json = JSON.parse(body);
 
@@ -58,7 +58,7 @@ module.exports = NodeHelper.create({
 
                 self.sendSocketNotification("SL_DEPARTURES", departures);
             } catch (error) {
-                console.log('Something went wrong when parsing response from SL: ' + error);    
+                console.log('Something went wrong when parsing response from SL: ' + error);
             }
             self.scheduleTimer();
         });
@@ -72,4 +72,3 @@ module.exports = NodeHelper.create({
         }, this.reloadInterval);
     }
 });
-
