@@ -47,6 +47,7 @@ module.exports = NodeHelper.create({
                         bus.Destination !== 'Skärgårdsstad'
                 });
 
+                suitableBuses = suitableBuses.slice(0, 7);
                 suitableBuses.forEach(bus => {
                     departures.push({
                         line_number: bus.LineNumber,
