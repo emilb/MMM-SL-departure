@@ -5,7 +5,7 @@ var moment = require('moment');
 
 module.exports = NodeHelper.create({
 
-    reloadInterval: 10 * 60 * 1000,
+    reloadInterval: 15 * 60 * 1000,
     refreshInterval: 60 * 1000,
     lastFetchedDepartures: [],
 
@@ -27,7 +27,6 @@ module.exports = NodeHelper.create({
     updateView: function() {
         this.scheduleUpdateTimer();
 
-        console.log('Updating buses view!');
         var departures = [];
         // Filter already departured buses
         var now = moment.now();
@@ -55,12 +54,13 @@ module.exports = NodeHelper.create({
         var url = this.config.api_url.replace('API_KEY', this.config.api_key).replace('TIME_WINDOW', this.config.time_window).replace('STATION', this.config.station);
 
         nodeVersion = Number(process.version.match(/^v(\d+\.\d+)/)[1]);
-        headers = { "User-Agent": "Mozilla/5.0 (Node.js " + nodeVersion + ") MagicMirror/" + global.version + " (https://github.com/MichMich/MagicMirror/)" }
+        headers = { "User-Agent": "Mozilla/5.0 "};
+        //(Node.js " + nodeVersion + ") MagicMirror/" + global.version + " (https://github.com/MichMich/MagicMirror/)" }
         console.log(url);
         request({ uri: url, encoding: null, headers: headers }, function (error, response, body) {
 
             if (error || response.statusCode != 200) {
-                console.log('API call to SL failed: ' + error);
+                console.log('API call to SL failed. Statuscode: ' +  response.statusCode  + error);
                 self.scheduleTimer();
                 return;
             }
