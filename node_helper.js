@@ -62,8 +62,8 @@ module.exports = NodeHelper.create({
             if (error || ( response && response.statusCode != 200 )) {
                 
                 console.log('API call to SL failed. Statuscode: ' +  
-                    (response && response.statusCode ? response.statusCode : 'No response')  + error);
-                self.scheduleTimer();
+                    (response && response.statusCode ? response.statusCode : 'No response ')  + error);
+                self.scheduleTimer(5);
                 return;
             }
 
@@ -86,12 +86,12 @@ module.exports = NodeHelper.create({
         });
     },
 
-    scheduleTimer: function () {
+    scheduleTimer: function (timeout) {
         var self = this;
         clearTimeout(this.reloadTimer);
         this.reloadTimer = setTimeout(function () {
             self.fetchDepartures();
-        }, this.reloadInterval);
+        }, timeout ? timeout : this.reloadInterval);
     },
 
     scheduleUpdateTimer: function () {
