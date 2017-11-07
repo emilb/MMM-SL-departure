@@ -59,8 +59,10 @@ module.exports = NodeHelper.create({
         console.log(url);
         request({ uri: url, encoding: null, headers: headers }, function (error, response, body) {
 
-            if (error || response.statusCode != 200) {
-                console.log('API call to SL failed. Statuscode: ' +  response.statusCode  + error);
+            if (error || ( response && response.statusCode != 200 )) {
+                
+                console.log('API call to SL failed. Statuscode: ' +  
+                    (response && response.statusCode ? response.statusCode : 'No response')  + error);
                 self.scheduleTimer();
                 return;
             }
